@@ -18,7 +18,7 @@ class Card extends Component {
                 <Title>{this.props.name}</Title>
                 <Image img={this.props.image}/>
                 <LinkBox>
-                    <Text>{this.props.alias}</Text>
+                    <Text>{`freshqr.io/${this.props.alias}`}</Text>
                     <BsCaretDownFill/>
                     <Text>{this.props.content}</Text>
                 </LinkBox>

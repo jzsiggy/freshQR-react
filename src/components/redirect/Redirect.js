@@ -3,6 +3,17 @@ import { withRouter } from 'react-router-dom';
 
 import API from '../../assets/API';
 
+import {
+    Animation,
+    Text,
+    Container,
+    Header,
+    IconGroup,
+    Icon,
+    Loading,
+    Underline,
+} from './styles';
+
 class Redirect extends Component {
     state = {
         error: false
@@ -12,7 +23,7 @@ class Redirect extends Component {
         const { alias } = this.props.match.params;
         API.get(`content/${alias}`)
         .then(response => {
-            window.location.replace(response.data.content)
+            setTimeout(() => window.location.replace(response.data.content), 1000);
         })
         .catch(err => {
             this.setState({
@@ -23,10 +34,26 @@ class Redirect extends Component {
 
     render() {
         return(
-            !this.state.error ?
-            <>Loading</>
-            :
-            <>Invalid URL</>
+            <Container>
+                <Header>
+                    <IconGroup>
+                        <Icon/>
+                        <span>FreshQR</span>
+                    </IconGroup>
+                </Header>
+                {
+                    !this.state.error ?
+                    <Loading/>
+                    :
+                    <Text>
+                        <Animation/>
+                        <span>
+                            This <Underline>QR code</Underline> is not <Underline>correctly configured.</Underline> 
+                            &nbsp;If you are the owner, please check your <Underline>code configurations</Underline>.
+                        </span>
+                    </Text>
+                }
+            </Container>
         )
     }
 }
