@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route } from 'react-router-dom';
+import Dashboard from "./components/dashboard/Dashboard";
+import EditCodeForm from './components/form/edit/EditCodeForm';
+import NewCodeForm from "./components/form/new/NewCodeForm";
+import Redirect from './components/redirect/Redirect';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Switch>
+        <Route exact path='/'>
+          <Dashboard/>
+        </Route>
+        <Route exact path='/new'>
+          <NewCodeForm/>
+        </Route>
+        <Route exact path='/edit/:alias'>
+          <EditCodeForm/>
+        </Route>
+        <Route exact path='/:alias'>
+          <Redirect/>
+        </Route>
+      </Switch>
   );
-}
+};
 
 export default App;
