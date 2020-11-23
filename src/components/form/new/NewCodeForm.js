@@ -45,7 +45,7 @@ class NewCodeForm extends Component {
             })
         }
 
-        API.post('/new', body)
+        API.post('qr/new', body)
         .then(response => {
             this.setState({
                 error: false,

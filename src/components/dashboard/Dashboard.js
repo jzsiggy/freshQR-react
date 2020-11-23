@@ -12,7 +12,7 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        API.get('list')
+        API.get('qr/list')
         .then(response => {
             const { data } = response;
             this.setState({

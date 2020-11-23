@@ -48,7 +48,7 @@ class EditCodeForm extends Component {
 
     componentDidMount = () => {
         let { alias } = this.props.match.params;
-        API.get(`content/${alias}`)
+        API.get(`qr/specs/${alias}`)
         .then(response => {
             this.setState({
                 id: response.data._id,
@@ -80,7 +80,7 @@ class EditCodeForm extends Component {
 
         let body = { ...formFields, id: this.state.id }
 
-        API.post('/update', body)
+        API.post('qr/update', body)
         .then(response => {
             console.log(response)
             this.setState({
@@ -114,7 +114,7 @@ class EditCodeForm extends Component {
     }
 
     confirmDeletion = () => {
-        API.post('/delete', { id: this.state.id })
+        API.post('qr/delete', { id: this.state.id })
         .then(response => {
             this.setState({
                 deleted: true

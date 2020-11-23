@@ -21,7 +21,7 @@ class Redirect extends Component {
     
     componentDidMount = () => {
         const { alias } = this.props.match.params;
-        API.get(`content/${alias}`)
+        API.get(`qr/content/${alias}`)
         .then(response => {
             setTimeout(() => window.location.replace(response.data.content), 1000);
         })
