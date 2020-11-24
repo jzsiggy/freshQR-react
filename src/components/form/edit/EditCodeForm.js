@@ -185,7 +185,7 @@ class EditCodeForm extends Component {
                             Alias:
                         </Label>
                         <Input name='alias' value={this.state.alias} onChange={(e) => this.handleSetAlias(e)}/>
-                        <Comment>{`www.freshqr.sh/${this.state.alias}`}</Comment>
+                        <Comment>{`www.freshqr.io/${this.state.alias}`}</Comment>
                     </InputGroup>
                     <br/>
                     {

@@ -96,7 +96,7 @@ class NewCodeForm extends Component {
                             Choose an alias for the QR Code.
                         </Label>
                         <Input name='alias' value={this.state.alias} placeholder='cat-video1' onChange={(e) => this.handleSetAlias(e)}/>
-                        <Comment>{`www.freshqr.sh/${this.state.alias}`}</Comment>
+                        <Comment>{`www.freshqr.io/${this.state.alias}`}</Comment>
                     </InputGroup>
                     {
                         this.state.success ?
