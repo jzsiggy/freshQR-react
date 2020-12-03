@@ -14,7 +14,7 @@ class App extends Component {
   };
 
   componentDidMount = () => {
-    if ( ['/login', '/signup'].includes(this.props.location.pathname) ) {
+    if ( ['/login', '/signup', '/code'].includes(this.props.location.pathname) ) {
       this.setState({
         loading: false
       }) 
@@ -42,7 +42,7 @@ class App extends Component {
       <>Loading</>
       :
       <Switch>
-        <Route exact path='/'>
+        <Route exact path='/dashboard'>
           <Dashboard/>
         </Route>
         <Route exact path='/new'>
@@ -57,7 +57,7 @@ class App extends Component {
         <Route exact path='/signup'>
           <Signup/>
         </Route>
-        <Route exact path='/:alias'>
+        <Route exact path='/code/:alias'>
           <Redirect/>
         </Route>
       </Switch>
