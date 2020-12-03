@@ -14,7 +14,12 @@ class App extends Component {
   };
 
   componentDidMount = () => {
-    if ( ['/login', '/signup', '/code'].includes(this.props.location.pathname) ) {
+    let path = this.props.location.pathname;
+    if ( 
+      path.startsWith('/login') || 
+      path.startsWith('/signup') ||
+      path.startsWith('/code')
+    ) {
       this.setState({
         loading: false
       }) 
