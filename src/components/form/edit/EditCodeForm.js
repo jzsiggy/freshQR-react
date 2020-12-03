@@ -174,7 +174,7 @@ class EditCodeForm extends Component {
                     </DeleteModal>
                 }
                 <Header> 
-                    <Back to='/'> <IoIosArrowBack/> </Back> 
+                    <Back to='/dashboard'> <IoIosArrowBack/> </Back> 
                     <Delete onClick={() => this.showModal()}> <BsTrash/> </Delete>
                 </Header>
                 <Wrapper>
