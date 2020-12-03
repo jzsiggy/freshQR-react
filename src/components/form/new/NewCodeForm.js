@@ -45,6 +45,12 @@ class NewCodeForm extends Component {
             })
         }
 
+        if (!this.state.content.startsWith('http://') && !this.state.content.startsWith('https://')) {
+            return this.setState({
+                error: `url must start with 'http://' or 'https://'`
+            })
+        }
+
         API.post('qr/new', body)
         .then(response => {
             this.setState({
@@ -81,7 +87,7 @@ class NewCodeForm extends Component {
     render() {
         return (
             <Container>
-                <Header> <Back to='/'><IoIosArrowBack/></Back> </Header>
+                <Header> <Back to='/dashboard'><IoIosArrowBack/></Back> </Header>
                 <Wrapper>
                     <Name html={this.state.name} onChange={(e) => this.handleSetName(e)}/>
                     <InputGroup>
@@ -104,7 +110,7 @@ class NewCodeForm extends Component {
                             <ImageContainer>
                                 <Image img={this.state.image}/>
                             </ImageContainer>
-                            <Success to='/'> <IoIosCheckmarkCircleOutline/> </Success>
+                            <Success to='/dashboard'> <IoIosCheckmarkCircleOutline/> </Success>
                         </>
                         :
                         <>

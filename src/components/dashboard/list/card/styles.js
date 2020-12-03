@@ -40,10 +40,14 @@ const LinkBox = styled.div`
     justify-content: space-between;
 
     height: 60px;
+    width: 80%;
 `
 
 const Text = styled.span`
-
+    width: 90%;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
 `
 
 const Edit = styled(Link)`

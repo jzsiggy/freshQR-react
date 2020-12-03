@@ -1,7 +1,9 @@
 import React , { Component } from 'react';
-import { Wrapper, ErrorMessage } from './styles';
+import { Wrapper, ErrorMessage, Logout } from './styles';
 import Header from './header/Header';
 import List from './list/List';
+
+import { HiLogout } from 'react-icons/hi'
 
 import API from '../../assets/API';
 
@@ -10,6 +12,10 @@ class Dashboard extends Component {
         codes : [],
         error : false
     }
+
+    logout = () => {
+        API.post('auth/logout')
+    };
 
     componentDidMount() {
         API.get('qr/list')
@@ -37,6 +43,7 @@ class Dashboard extends Component {
                 :
                 <List codes={this.state.codes}/>
                 }
+                <Logout to='/login' onClick={() => this.logout()}><HiLogout/></Logout>
             </Wrapper>
         );
     };

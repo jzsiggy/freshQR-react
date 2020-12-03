@@ -36,7 +36,7 @@ class Login extends Component {
         
         API.post('auth/login', body)
         .then(repsponse => {
-            this.props.history.push('/')
+            this.props.history.push('/dashboard')
         })
         .catch(err => {
             this.setState({

@@ -78,6 +78,12 @@ class EditCodeForm extends Component {
             })
         }
 
+        if (!this.state.content.startsWith('http://') && !this.state.content.startsWith('https://')) {
+            return this.setState({
+                error: `url must start with 'http://' or 'https://'`
+            })
+        }
+
         let body = { ...formFields, id: this.state.id }
 
         API.post('qr/update', body)
@@ -152,7 +158,7 @@ class EditCodeForm extends Component {
                             <Text>
                                 <span>Code deleted succesfully</span>
                             </Text>
-                            <Link to='/'>Back to home</Link>
+                            <Link to='/dashboard'>Back to home</Link>
                         </>
                         :
                         <>
@@ -190,7 +196,7 @@ class EditCodeForm extends Component {
                     <br/>
                     {
                         this.state.success ?
-                        <Success to='/'> <IoIosCheckmarkCircleOutline/> </Success>
+                        <Success to='/dashboard'> <IoIosCheckmarkCircleOutline/> </Success>
                         :
                         <Submit onClick={() => this.handleSubmit()}> <BiSend/> </Submit>
                     }
