@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { green } from '../../../assets/theme';
+
 
 const Wrapper = styled.div`
     display: flex;
@@ -25,5 +27,6 @@ const Input = styled.input`
 `
 
 export {
-    Wrapper
+    Wrapper,
+    Input
 }
