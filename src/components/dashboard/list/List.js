@@ -1,6 +1,5 @@
 import React , { Component } from 'react';
-import { Wrapper } from './styles';
-import { Input } from '../../form/styles';
+import { Wrapper, Input } from './styles';
 import Card from './card/Card';
 
 class List extends Component {
@@ -20,7 +19,7 @@ class List extends Component {
             <Input name='filter' value={this.state.filter} placeholder='filtro' onChange={(e) => this.handleSetFilter(e)}/>
             {
                 this.props.codes
-                .filter(code => code.name.includes(this.state.filter))
+                .filter(code => code.name.toLowerCase().includes(this.state.filter.toLowerCase()))
                 .map((code, index) => {
                     return (
                         <Card 
