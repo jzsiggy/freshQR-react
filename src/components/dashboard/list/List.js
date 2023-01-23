@@ -15,8 +15,9 @@ class List extends Component {
 
     render() {
         return (
-            <Wrapper>
+            <>
             <Input name='filter' value={this.state.filter} placeholder='filtro' onChange={(e) => this.handleSetFilter(e)}/>
+            <Wrapper>
             {
                 this.props.codes
                 .filter(code => code.name.toLowerCase().includes(this.state.filter.toLowerCase()))
@@ -33,6 +34,7 @@ class List extends Component {
                 })
             }
             </Wrapper>
+            </>
         );
     };
 };
