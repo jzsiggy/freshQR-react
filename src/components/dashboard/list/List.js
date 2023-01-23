@@ -10,7 +10,7 @@ class List extends Component {
 
     handleSetFilter = (e) => {
         this.setState({
-            content: e.target.value
+            filter: e.target.value
         });
     };
 
