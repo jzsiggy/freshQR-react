@@ -4,16 +4,20 @@ import API from '../../../assets/API';
 import { IoIosCheckmarkCircleOutline } from "react-icons/io"
 
 import {
+    Brand,
     Container,
-    Message, 
+    Message,
     Header,
     Input,
     InputGroup,
+    Kicker,
     Label,
     Submit,
     Success,
+    Switch,
     Wrapper
 } from '../styles';
+import { Logo } from '../../common';
 
 import { Link } from 'react-router-dom';
 
@@ -61,35 +65,32 @@ class Signup extends Component {
     render() {
         return(
             <Container>
+                <Brand><Logo size={26} mark={32}/></Brand>
                 <Wrapper>
-                    <Header>Register</Header>
+                    <Kicker>{'// keep your codes fresh'}</Kicker>
+                    <Header>Register<span className='bar'/></Header>
                     <InputGroup>
-                        <Label htmlFor='email'>Email:</Label>
-                        <Input name='email' value={this.state.email} onChange={(e) => this.handleFormInput(e)}/>
+                        <Label htmlFor='email'>Email</Label>
+                        <Input name='email' value={this.state.email} placeholder='you@domain.com' onChange={(e) => this.handleFormInput(e)}/>
                     </InputGroup>
                     <InputGroup>
-                        <Label htmlFor='password'>Password:</Label>
-                        <Input name='password' type='password' value={this.state.password} onChange={(e) => this.handleFormInput(e)}/>
-                    </InputGroup>
-                    <InputGroup>
-                        {
-                            this.state.success ?
-                            <>
-                                <Success> <IoIosCheckmarkCircleOutline/> </Success>
-                                <Message>Back to <Link to='/login'>Login</Link></Message>
-                            </>
-                            :
-                            <Submit onClick={() => this.handleSubmit()}>Sign Up!</Submit>
-                        }
+                        <Label htmlFor='password'>Password</Label>
+                        <Input name='password' type='password' value={this.state.password} placeholder='••••••••' onChange={(e) => this.handleFormInput(e)}/>
                     </InputGroup>
                     {
-                        this.state.error &&
-                        <>
-                            <br/>
-                            <Message>{this.state.error}</Message>
-                        </>
+                        this.state.success ?
+                        <Success> <IoIosCheckmarkCircleOutline/> </Success>
+                        :
+                        <Submit onClick={() => this.handleSubmit()}>Create account &rarr;</Submit>
                     }
-                    <Link to='/login'>Log In</Link>
+                    {
+                        this.state.error &&
+                        <Message>{this.state.error}</Message>
+                    }
+                    <Switch>
+                        <span>{this.state.success ? 'All set.' : 'Already registered?'}</span>
+                        <Link to='/login'>Log in</Link>
+                    </Switch>
                 </Wrapper>
             </Container>
         )

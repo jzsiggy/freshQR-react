@@ -1,5 +1,5 @@
 import React , { Component } from 'react';
-import { Wrapper, Input } from './styles';
+import { Toolbar, Input, Count, Wrapper, Empty } from './styles';
 import Card from './card/Card';
 
 class List extends Component {
@@ -14,26 +14,47 @@ class List extends Component {
     };
 
     render() {
+        const { selectedFolder } = this.props;
+
+        const visible = this.props.codes
+            .filter(code => !selectedFolder || (code.folder || null) === selectedFolder._id)
+            .filter(code => code.name.toLowerCase().includes(this.state.filter.toLowerCase()));
+
         return (
             <>
-            <Input name='filter' value={this.state.filter} placeholder='filtro' onChange={(e) => this.handleSetFilter(e)}/>
-            <Wrapper>
+            <Toolbar>
+                <Input name='filter' value={this.state.filter} placeholder='Search your codes…' onChange={(e) => this.handleSetFilter(e)}/>
+                <Count><b>{visible.length}</b>{visible.length === 1 ? 'code' : 'codes'}</Count>
+            </Toolbar>
             {
-                this.props.codes
-                .filter(code => code.name.toLowerCase().includes(this.state.filter.toLowerCase()))
-                .map((code, index) => {
-                    return (
-                        <Card 
-                        key={index} 
-                        name={code.name} 
-                        alias={code.alias} 
-                        image={code.image} 
-                        content={code.content} 
-                        />
-                    )
-                })
+                visible.length === 0
+                ?
+                <Empty>
+                    {this.state.filter
+                        ? <>Nothing matches <b>“{this.state.filter}”</b>.</>
+                        : selectedFolder
+                            ? <>This folder is empty. <b>Drag a code here</b> or set its folder in the edit screen.</>
+                            : <>No codes yet. Hit <b>New code</b> to mint your first one.</>}
+                </Empty>
+                :
+                <Wrapper>
+                {
+                    visible.map((code) => {
+                        return (
+                            <Card
+                            key={code._id}
+                            id={code._id}
+                            name={code.name}
+                            alias={code.alias}
+                            image={code.image}
+                            content={code.content}
+                            folder={code.folder}
+                            />
+                        )
+                    })
+                }
+                </Wrapper>
             }
-            </Wrapper>
             </>
         );
     };

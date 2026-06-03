@@ -3,15 +3,19 @@ import { Link, withRouter } from 'react-router-dom';
 import API from '../../../assets/API';
 
 import {
+    Brand,
     Container,
-    Message, 
+    Message,
     Header,
     Input,
     InputGroup,
+    Kicker,
     Label,
     Submit,
+    Switch,
     Wrapper
 } from '../styles';
+import { Logo } from '../../common';
 
 class Login extends Component {
     state = {
@@ -54,27 +58,27 @@ class Login extends Component {
     render() {
         return(
             <Container>
+                <Brand><Logo size={26} mark={32}/></Brand>
                 <Wrapper>
-                    <Header>Log in</Header>
+                    <Kicker>{'// access your codes'}</Kicker>
+                    <Header>Log in<span className='bar'/></Header>
                     <InputGroup>
-                        <Label htmlFor='email'>Email:</Label>
-                        <Input name='email' value={this.state.email} onChange={(e) => this.handleFormInput(e)}/>
+                        <Label htmlFor='email'>Email</Label>
+                        <Input name='email' value={this.state.email} placeholder='you@domain.com' onChange={(e) => this.handleFormInput(e)}/>
                     </InputGroup>
                     <InputGroup>
-                        <Label htmlFor='password'>Password:</Label>
-                        <Input name='password' type='password' value={this.state.password} onChange={(e) => this.handleFormInput(e)}/>
+                        <Label htmlFor='password'>Password</Label>
+                        <Input name='password' type='password' value={this.state.password} placeholder='••••••••' onChange={(e) => this.handleFormInput(e)}/>
                     </InputGroup>
-                    <InputGroup>
-                        <Submit onClick={() => this.handleSubmit()}>Log In!</Submit>
-                    </InputGroup>
+                    <Submit onClick={() => this.handleSubmit()}>Log in &rarr;</Submit>
                     {
                         this.state.error &&
-                        <>
-                            <br/>
-                            <Message>{this.state.error}</Message>
-                        </>
+                        <Message>{this.state.error}</Message>
                     }
-                <Link to='/signup'>Sign Up</Link>
+                    <Switch>
+                        <span>No account yet?</span>
+                        <Link to='/signup'>Sign up</Link>
+                    </Switch>
                 </Wrapper>
             </Container>
         )

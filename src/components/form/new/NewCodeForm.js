@@ -8,14 +8,15 @@ import {
     Back,
     Comment,
     Container,
-    ErrorMessage, 
+    ErrorMessage,
     Header,
-    Image, 
+    Image,
     ImageContainer,
     Input,
     InputGroup,
     Label,
-    Name, 
+    Name,
+    Select,
     Success,
     Submit,
     Wrapper
@@ -27,8 +28,16 @@ class NewCodeForm extends Component {
         content: '',
         alias: '',
         image: null,
+        folder: '',
+        folders: [],
         success: false,
         error: false
+    }
+
+    componentDidMount = () => {
+        API.get('folder/list')
+        .then(response => this.setState({ folders: response.data }))
+        .catch(() => {})
     }
 
     handleSubmit = () => {
@@ -51,7 +60,7 @@ class NewCodeForm extends Component {
             })
         }
 
-        API.post('qr/new', body)
+        API.post('qr/new', { ...body, folder: this.state.folder || null })
         .then(response => {
             this.setState({
                 error: false,
@@ -103,6 +112,18 @@ class NewCodeForm extends Component {
                         </Label>
                         <Input name='alias' value={this.state.alias} placeholder='cat-video1' onChange={(e) => this.handleSetAlias(e)}/>
                         <Comment>{`www.freshqr.io/${this.state.alias}`}</Comment>
+                    </InputGroup>
+                    <br/>
+                    <InputGroup>
+                        <Label htmlFor='folder'>
+                            Folder (optional)
+                        </Label>
+                        <Select name='folder' value={this.state.folder} onChange={(e) => this.setState({ folder: e.target.value })}>
+                            <option value=''>No folder</option>
+                            {this.state.folders.map(f => (
+                                <option key={f._id} value={f._id}>{f.name}</option>
+                            ))}
+                        </Select>
                     </InputGroup>
                     {
                         this.state.success ?

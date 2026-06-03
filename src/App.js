@@ -7,6 +7,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import EditCodeForm from './components/form/edit/EditCodeForm';
 import NewCodeForm from "./components/form/new/NewCodeForm";
 import Redirect from './components/redirect/Redirect';
+import { Splash } from './components/common';
 
 class App extends Component {
   state = {
@@ -42,9 +43,9 @@ class App extends Component {
 
   render() {
     return (
-      this.state.loading 
+      this.state.loading
       ?
-      <>Loading</>
+      <Splash/>
       :
       <Switch>
         <Route exact path='/dashboard'>

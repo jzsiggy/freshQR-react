@@ -11,12 +11,13 @@ import {
     Back,
     Comment,
     Container,
-    ErrorMessage, 
+    ErrorMessage,
     Header,
     Input,
     InputGroup,
     Label,
-    Name, 
+    Name,
+    Select,
     Success,
     Submit,
     Wrapper
@@ -38,7 +39,9 @@ class EditCodeForm extends Component {
         alias: '',
         id: '',
         image: null,
-        
+        folder: '',          // '' === no folder
+        folders: [],
+
         success: false,
         error: false,
 
@@ -55,7 +58,8 @@ class EditCodeForm extends Component {
                 name: response.data.name,
                 alias: response.data.alias,
                 content: response.data.content,
-                image: response.data.image
+                image: response.data.image,
+                folder: response.data.folder || ''
             })
         })
         .catch(err => {
@@ -63,6 +67,10 @@ class EditCodeForm extends Component {
                 error: err.response ? err.response.data.message : "We've ran into an error. Please try again later."
             })
         })
+
+        API.get('folder/list')
+        .then(response => this.setState({ folders: response.data }))
+        .catch(() => {})
     }
 
     handleSubmit = () => {
@@ -84,7 +92,7 @@ class EditCodeForm extends Component {
             })
         }
 
-        let body = { ...formFields, id: this.state.id }
+        let body = { ...formFields, id: this.state.id, folder: this.state.folder || null }
 
         API.post('qr/update', body)
         .then(response => {
@@ -192,6 +200,18 @@ class EditCodeForm extends Component {
                         </Label>
                         <Input name='alias' value={this.state.alias} onChange={(e) => this.handleSetAlias(e)}/>
                         <Comment>{`www.freshqr.io/${this.state.alias}`}</Comment>
+                    </InputGroup>
+                    <br/>
+                    <InputGroup>
+                        <Label htmlFor='folder'>
+                            Folder
+                        </Label>
+                        <Select name='folder' value={this.state.folder} onChange={(e) => this.setState({ folder: e.target.value })}>
+                            <option value=''>No folder</option>
+                            {this.state.folders.map(f => (
+                                <option key={f._id} value={f._id}>{f.name}</option>
+                            ))}
+                        </Select>
                     </InputGroup>
                     <br/>
                     {

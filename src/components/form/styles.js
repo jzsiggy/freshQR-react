@@ -1,16 +1,11 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 import ContentEditable from "react-contenteditable";
 
-import { green } from '../../assets/theme';
-
-const Back = styled(Link)`
-    display: flex;
-    flex-direction: column;
-    justify-conntent: center;
-    width: 50px;
-    color: inherit;
-`
+const rise = keyframes`
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+`;
 
 const Container = styled.div`
     display: flex;
@@ -18,15 +13,9 @@ const Container = styled.div`
     align-items: center;
 
     width: 100%;
-`
-
-const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-
-    width: 80%;
-    max-width: 350px;
-`
+    min-height: 100vh;
+    padding: 0 20px 60px;
+`;
 
 const Header = styled.div`
     display: flex;
@@ -34,141 +23,252 @@ const Header = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    height: 100px;
-    width: 95%;
+    width: 100%;
+    max-width: 440px;
+    height: 84px;
+`;
 
-    font-size: 45px;
-    font-weight: bold;
-`
+const navBtn = `
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    color: var(--ink);
+    background: var(--paper-2);
+    border: 2px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    font-size: 1.3rem;
+    cursor: pointer;
 
-const Name = styled(ContentEditable)`
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    &:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 6px 6px 0 var(--ink);
+    }
+    &:active {
+        transform: translate(2px, 2px);
+        box-shadow: 1px 1px 0 var(--ink);
+    }
+`;
+
+const Back = styled(Link)`
+    ${navBtn}
+    &:hover { background: var(--lime); }
+`;
+
+const Wrapper = styled.div`
+    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    gap: 4px;
 
-    height: 100px;
+    width: 100%;
+    max-width: 440px;
+    padding: 28px 28px 30px;
 
-    font-size: 30px;
-    font-weight: bold;
-    
-    text-decoration: underline;
-    text-decoration-color: ${green};
+    background: var(--paper-2);
+    border: 2px solid var(--ink);
+    box-shadow: var(--shadow-lg);
+    animation: ${rise} 0.5s ease both;
+`;
 
+const Name = styled(ContentEditable)`
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 2rem;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    padding-bottom: 6px;
+    margin-bottom: 18px;
+
+    box-shadow: inset 0 -10px 0 var(--lime);
+    display: inline-block;
+    width: fit-content;
+    max-width: 100%;
     outline: 0;
-`
+
+    &:focus { box-shadow: inset 0 -10px 0 var(--lime-deep); }
+`;
 
 const InputGroup = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-
-    height: 110px;
+    gap: 8px;
     width: 100%;
-`
+    margin-bottom: 18px;
+`;
 
 const Label = styled.label`
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-
-    height: 40px;
-    width: 50%;
-    font-size: 0.8rem;
-`
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+`;
 
 const Input = styled.input`
-    height: 40px;
+    height: 48px;
     width: 100%;
+    padding: 0 14px;
 
-    border: 2px solid ${green};
-    border-radius: 10px;
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 0;
 
     outline: 0;
-    font-family: inherit;
-    color: inherit;
-    font-size: 18px;
-`
+    font-family: var(--mono);
+    color: var(--ink);
+    font-size: 1rem;
+
+    transition: box-shadow 0.12s ease, transform 0.12s ease;
+    &::placeholder { color: rgba(23, 22, 15, 0.35); }
+    &:focus {
+        box-shadow: var(--shadow);
+        transform: translate(-2px, -2px);
+    }
+`;
 
 const Comment = styled.span`
+    margin-top: 4px;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink);
+
+    &::before {
+        content: '↳ ';
+        color: var(--lime-deep);
+        -webkit-text-stroke: 0.5px var(--ink);
+    }
+`;
+
+const Select = styled.select`
+    height: 48px;
     width: 100%;
-    font-size: 0.6rem;
-`
+    padding: 0 14px;
+
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 0;
+
+    outline: 0;
+    cursor: pointer;
+    font-family: var(--mono);
+    color: var(--ink);
+    font-size: 1rem;
+
+    /* custom caret */
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%),
+                      linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+    background-position: calc(100% - 18px) 21px, calc(100% - 12px) 21px;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+
+    transition: box-shadow 0.12s ease, transform 0.12s ease;
+    &:focus {
+        box-shadow: var(--shadow);
+        transform: translate(-2px, -2px);
+    }
+`;
 
 const Submit = styled.div`
-    align-self: center;
-
+    align-self: stretch;
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: center;
+    gap: 10px;
 
-    width: 130px;
-    height: 70px;
+    height: 58px;
+    margin-top: 6px;
 
-    background-color: ${green};
-    color: white;
-    border-radius: 9px;
-    font-size: 25px;
+    background: var(--lime);
+    color: var(--ink);
+    border: 2px solid var(--ink);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    font-size: 1.4rem;
 
-    transition: 0.2s ease all;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
     &:hover {
-        transform: scale(1.03);
+        transform: translate(-2px, -2px);
+        box-shadow: var(--shadow-lg);
+        background: var(--lime-deep);
     }
-`
+    &:active {
+        transform: translate(2px, 2px);
+        box-shadow: 1px 1px 0 var(--ink);
+    }
+`;
 
 const ImageContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-
-    height: 200px;
-    width: 100%;
-`
+    margin: 8px 0 16px;
+`;
 
 const Image = styled.div`
-    width: 150px;
-    height: 150px;
+    width: 180px;
+    height: 180px;
+    padding: 14px;
+    background-color: #ffffff;
     background-image: url(${props => props.img});
-    background-size: contain;
+    background-size: 152px 152px;
     background-repeat: no-repeat;
-`
+    background-position: center;
+    border: 2px solid var(--ink);
+    box-shadow: var(--shadow);
+`;
 
 const Success = styled(Link)`
-
-    align-self: center;
-
+    align-self: stretch;
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: center;
+    gap: 10px;
 
-    width: 150px;
-    height: 50px;
+    height: 58px;
+    margin-top: 6px;
 
-    background-color: ${green};
-    color: white;
-    border-radius: 9px;
-    font-size: 25px;
-`
+    background: var(--ink);
+    color: var(--lime);
+    border: 2px solid var(--ink);
+    box-shadow: var(--shadow);
+    font-size: 1.7rem;
+
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    &:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-lg); }
+`;
 
 const ErrorMessage = styled.span`
+    margin-top: 12px;
     text-align: center;
-`
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: var(--coral);
 
+    &::before { content: '! '; font-weight: 700; }
+`;
 
 export {
     Back,
     Container,
     Comment,
-    ErrorMessage, 
+    ErrorMessage,
     Header,
-    Image, 
+    Image,
     ImageContainer,
     Input,
     InputGroup,
     Label,
-    Name, 
+    Name,
+    Select,
     Success,
     Submit,
     Wrapper
-}
+};
